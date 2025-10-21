@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block logo_entrance %}
+<!-- Gallery Entrance Animation -->
+<div class="page-entrance gallery-entrance">
+    <div class="logo-container">
+        <h1 class="page-title">Gallery</h1>
+        <p class="page-subtitle">Our Beautiful Events</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container py-5 mt-5">
+    <!-- Filters -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <select class="form-select" onchange="window.location.href=this.value">
+                <option value="?">All Categories</option>
+                {% for category in categories %}
+                <option value="?category={{ category.name }}" 
+                        {% if request.GET.category == category.name %}selected{% endif %}>
+                    {{ category.name }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-6">
+            <select class="form-select" onchange="window.location.href=this.value">
+                <option value="?">All Event Types</option>
+                {% for type_code, type_name in event_types %}
+                <option value="?type={{ type_code }}"
+                        {% if request.GET.type == type_code %}selected{% endif %}>
+                    {{ type_name }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <!-- Events Grid -->
+    <div class="row">
+        {% for event in events %}
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card card-hover shadow-sm h-100">
+                {% if event.images.first %}
+                <img src="{{ event.images.first.image.url }}" class="card-img-top" alt="{{ event.title }}" style="height: 250px; object-fit: cover;">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ event.title }}</h5>
+                    <p class="card-text text-muted">{{ event.get_event_type_display }}</p>
+                    <p class="card-text small">{{ event.description|truncatewords:20 }}</p>
+                    <a href="{% url 'event_detail' event.pk %}" class="btn btn-outline-primary btn-sm">View Gallery</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center py-5">
+            <h4 class="text-muted">No events found</h4>
+            <p class="text-muted">Check back later for our latest work</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if is_paginated %}
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Previous</a>
+            </li>
+            {% endif %}
+            
+            {% for num in page_obj.paginator.page_range %}
+            <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+                <a class="page-link" href="?page={{ num }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">{{ num }}</a>
+            </li>
+            {% endfor %}
+            
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Next</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+<!-- templates/blog/sidebar.html -->
+<div class="sidebar">
+    <!-- About Section -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h5 class="card-title">About Our Blog</h5>
+            <p class="card-text small text-muted">
+                Get inspired with wedding tips, event planning advice, and behind-the-scenes stories from Inspired Weddings & Events Co.
+            </p>
+        </div>
+    </div>
+
+    <!-- Categories/Tags -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Popular Tags</h5>
+            <div class="d-flex flex-wrap gap-2">
+                {% for tag in tags %}
+                <a href="#" class="badge bg-light text-dark text-decoration-none">{{ tag.name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="card shadow-sm border-primary">
+        <div class="card-body text-center">
+            <h6 class="card-title">Ready to Plan Your Event?</h6>
+            <p class="card-text small text-muted mb-3">Let's create something beautiful together</p>
+            <a href="{% url 'book_call' %}" class="btn btn-primary btn-sm">Book Consultation</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,64 @@
+/* static/css/style.css (add these) */
+/* Purple theme enhancements */
+:root {
+    --primary-color: #6a0dad;
+    --primary-dark: #5a0c9d;
+    --primary-light: #7b1cbd;
+    --secondary-color: #f8f9fa;
+    --accent-color: #9370db;
+    --text-dark: #2d3748;
+}
+
+/* Improved card shadows */
+.card-hover {
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(106, 13, 173, 0.15) !important;
+}
+
+/* Purple gradient buttons */
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    border: none;
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+    transform: translateY(-1px);
+}
+
+/* Navigation enhancements */
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.navbar-nav .nav-link {
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--primary-color) !important;
+}
+
+/* Stats cards for dashboard */
+.border-left-primary { border-left: 4px solid var(--primary-color) !important; }
+.border-left-success { border-left: 4px solid #10b981 !important; }
+.border-left-info { border-left: 4px solid #3b82f6 !important; }
+.border-left-warning { border-left: 4px solid #f59e0b !important; }
+
+/* Loading animations */
+.fade-in {
+    animation: fadeIn 0.8s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
